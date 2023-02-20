@@ -32,10 +32,14 @@ app.post("/get-delivery-rate", async (req, res) => {
 
     const response = await client.deliveryQuote({
         external_delivery_id: uuidv4(),
-        pickup_address: "1000 4th Ave, Seattle, WA, 98104",
+        pickup_address: "11 Madison Ave, New York, NY 10001",
         pickup_phone_number: "+1(650)5555555",
-        dropoff_address: "1201 3rd Ave, Seattle, WA, 98101",
-        dropoff_phone_number: "+1(650)5555555",
+        pickup_business_name: "Doordash",
+        dropoff_address: `&{req.body.street}, ${req.body.city}, ${req.body.state}, ${req.body.zip}`,
+        dropoff_phone_number:  req.body.dropoff_phone_number,
+        dropoff_contact_given_name: req.body.dropoff_contact_given_name,
+        dropoff_contact_family_name: req.body.dropoff_contact_family_name,
+        order_value: req.body.order_value,
     });
 
     res.send(response);
