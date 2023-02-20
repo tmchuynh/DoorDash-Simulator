@@ -36,14 +36,13 @@ async function getFee() {
                 "Content-Type": "application/json"
             },
             body: finalPayload
+        }).then((response) => {
+            let resp = response.json();
+            console.log("response");
+            return resp;
+        }).catch((rejected) => {
+            console.log("error");
         })
-            .then((response) => {
-                let resp = response.json();
-                return resp;
-            })
-            .catch((error) => {
-                console.log(error);
-            })
 
         const deliveryFee = document.getElementById("fee");
         const clothingTotal = document.getElementById("price");
@@ -52,6 +51,8 @@ async function getFee() {
         clothingTotal.textContent = `$${(window.menuItems / 100).toFixed(2)}`;
         deliveryFee.textContent = `$${(response.data.fee / 100).toFixed(2)}`;
         orderTotal.textContent = `$${((Number(window.menuItems) + response.data.fee) / 100).toFixed(2)}`;
+
+        return response;
     } else {
         console.log("Form is not valid");
     }
@@ -80,6 +81,7 @@ async function createDelivery() {
             })
             .catch((error) => {
                 console.log(error);
+                return false;
             })
 
         if (response) {

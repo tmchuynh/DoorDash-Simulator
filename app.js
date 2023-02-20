@@ -7,6 +7,9 @@ const app = express();
 const port = 3000;
 import { fileURLToPath } from 'url';
 
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -23,6 +26,7 @@ app.listen(port, (err) => {
 
 app.use(express.static(__dirname + "/public"));
 
+
 app.post("/get-delivery-rate", async (req, res) => {
     const client = new DoorDashClient({
         developer_id: process.env.DEVELOPER_ID,
@@ -35,8 +39,8 @@ app.post("/get-delivery-rate", async (req, res) => {
         pickup_address: "11 Madison Ave, New York, NY 10001",
         pickup_phone_number: "+1(650)5555555",
         pickup_business_name: "Doordash",
-        dropoff_address: `&{req.body.street}, ${req.body.city}, ${req.body.state}, ${req.body.zip}`,
-        dropoff_phone_number:  req.body.dropoff_phone_number,
+        dropoff_address: `${req.body.street}, ${req.body.city}, ${req.body.zip}`,
+        dropoff_phone_number:  "7148582418",
         dropoff_contact_given_name: req.body.dropoff_contact_given_name,
         dropoff_contact_family_name: req.body.dropoff_contact_family_name,
         order_value: req.body.order_value,
@@ -54,7 +58,7 @@ app.post("/create-delivery", async (req, res) => {
     });
 
     const response = await client.deliveryQuoteAccept(
-        "ec08aa0b-acd1-4dc8-bd5c-c01ba0b439d8"
+        "ab4c319d-4ea6-4ab3-89c7-239fce3ccbd0"
     );
 
     res.send(response);

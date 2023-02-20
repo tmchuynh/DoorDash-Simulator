@@ -8,7 +8,7 @@ const client = new DoorDashClient({
 })
 
 const response = client
-  .getDelivery('142b11c9-bb1b-42ad-a976-069d6e960a9b')
+  .getDelivery('ab4c319d-4ea6-4ab3-89c7-239fce3ccbd0')
   .then(response => {
     console.log(response.data)
   })
