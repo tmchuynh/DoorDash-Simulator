@@ -1,4 +1,6 @@
 import { DoorDashClient } from "@doordash/sdk";
+import "dotenv/config";
+import { v4 as uuidv4 } from "uuid";
 import express from 'express';
 import path from 'path';
 const app = express();
@@ -35,4 +37,20 @@ app.post("/get-delivery-rate", async (req, res) => {
     });
 
     res.send(response);
+    console.log("quote", response);
+})
+
+app.post("/create-delivery", async (req, res) => {
+    const client = new DoorDashClient({
+        developer_id: process.env.DEVELOPER_ID,
+        key_id: process.env.KEY_ID,
+        signing_secret: process.env.SIGNING_SECRET,
+    });
+
+    const response = await client.deliveryQuoteAccept(
+        "ec08aa0b-acd1-4dc8-bd5c-c01ba0b439d8"
+    );
+
+    res.send(response);
+    console.log("accept", response);
 })
