@@ -21,6 +21,8 @@ app.listen(port, (err) => {
     console.log(`Listening on port ${port}`);
 });
 
+app.use(express.static(__dirname + "/public"));
+
 app.post("/get-delivery-rate", async (req, res) => {
     const client = new DoorDashClient({
         developer_id: process.env.DEVELOPER_ID,
