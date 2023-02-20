@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "@doordash/sdk": "^0.4.6",
+    "dotenv": "^16.0.3",
+    "uuid": "^9.0.0"
+  },
+  "type": "module"
+}
